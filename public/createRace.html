@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ajouter une course</title>
+	</head>
+  <body>
+		<h1>Ajout d'une course</h1>
+    <form method="post" action="/registerRace">
+    	<p>Nom de la course : <input type="text" value="" name="race[name]"></input></p>
+			<p>Date : <input type="text" value="" name="race[date]"></input></p> 
+			<p>Prix : <input type="text" value="" name="race[price]"></input></p> 
+			<p>Lieux : <input type="text" value="" name="race[location]"></input></p> 
+			<p>Description : <input type="text" value="" name="race[description]"></input></p>
+			<p>Championship : <input type="hidden" value="" name="championship[name]"></input></p> 
+    	<p><input type="submit" value="Create"> or <a href="/login">cancel</a>.</p>
+    </form>
+
+  </body>
+</html>
