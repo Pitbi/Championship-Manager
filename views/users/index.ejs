@@ -1,0 +1,7 @@
+<h1>Liste des utilisateurs</h1>
+<ul id="users">
+  <% users.forEach(function (user) { %>
+    <li><a href="/users/<%= user.id %>"><%= user.nickname %></a></li>
+  <% }); %>
+</ul>
+<p><a href='/'>Back</a> to the future.</p>

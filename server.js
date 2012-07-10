@@ -1,15 +1,12 @@
 //APP----------------------------------
 
 var express = require('express');
-var everyauth = require('everyauth');
 
 var app = express.createServer();
 app.configure(function () {
   app.use(express.logger({format: 'dev', stream: process.stdout}));
   app.use(express.bodyParser());
 	app.use(express.cookieParser());              //Filtre pour cookie
-  app.use(everyauth.middleware());
-  app.use(express.session({secret: "j'm'appelle Pierre!"}));
   app.use(app.router);
   app.use(express.static(__dirname + '/public')); // sert les "assets" (fichiers statiques genre html, css, jpg...)
   app.set('view engine', 'ejs');
@@ -74,7 +71,7 @@ app.get('/', function(req, res) {
 		console.log(req.cookies.userid);
 		res.redirect('/profil');
 	} else {
-	res.render('profile/index');
+	res.render('index/index');
 	}
 });
 
@@ -107,12 +104,14 @@ app.get('/register', function(req, res) {
 
 //List all users
 app.get('/users', function (req, res) {
-	res.write("<html><head><title>Users</title></head><body><h1>Users</h1><ul>");
   User.find(null).exec(function (err, users) {
-    users.forEach(function (user) {
-      res.write("<li>"+user.nickname+" : " +user.mail+"</li>");
-    });
-    res.end("</ul><p><a href='/'>Back</a> to the future.</p></body></html>");
+  	res.render('users/index', {users: users});
+  });
+});
+
+app.get('/users/:id', function (req, res) {
+  User.findById(req.params.id, function (err, user) {
+    res.render('users/show', {user: user});
   });
 });
 
@@ -259,9 +258,5 @@ function validatePassword(password, verifiedPassword) {
 	}
 }
 */
-
-
-
-everyauth.helpExpress(app);
 
 app.listen(5555);
